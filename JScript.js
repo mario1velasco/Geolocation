@@ -4,7 +4,12 @@ function iniciar() {
 }
 
 function obtener() {
-  navigator.geolocation.getCurrentPosition(mostrar);
+  var geoconfig = {
+    enableHighAccuracy: true,
+    timeout: 10000,
+    maximumAge: 60000
+  };
+  navigator.geolocation.getCurrentPosition(mostrar, errores, geoconfig);
 }
 
 function mostrar(posicion) {
@@ -15,4 +20,9 @@ function mostrar(posicion) {
   datos += 'Exactitud: ' + posicion.coords.accuracy + 'mts.<br>';
   ubicacion.innerHTML = datos;
 }
+
+function errores(error) {
+  alert('Error: ' + error.code + ' ' + error.message);
+}
+
 window.addEventListener('load', iniciar, false);
